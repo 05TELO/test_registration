@@ -23,22 +23,17 @@ class RegistrationPage:
         password_input.fill(password)
 
     def click_privacy_policy_button(self) -> None:
-        privacy_policy_checkbox_selector = (
-            ".remoteApplication > div > div > div"
-        )
-        self.page.wait_for_selector(privacy_policy_checkbox_selector)
-        self.page.click(privacy_policy_checkbox_selector)
+        privacy_policy_checkbox = self.page.get_by_role("checkbox")
+        privacy_policy_checkbox.click()
 
     def click_register_button(self) -> None:
-        register_button_selector = 'button:has-text("Далее")'
-        self.page.wait_for_selector(register_button_selector)
-        self.page.click(register_button_selector)
+        register_button = self.page.get_by_role("button", name="Далее")
+        register_button.click()
 
     def register(self, username: str, email: str, password: str) -> None:
         self.fill_username(username)
         self.fill_email(email)
         self.fill_password(password)
-        self.click_privacy_policy_button()
         self.click_register_button()
 
     def get_error_message(self, error: int) -> Optional[str]:
